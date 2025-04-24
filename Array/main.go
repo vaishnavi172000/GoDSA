@@ -57,6 +57,12 @@ func reverse(arr []int) {
 
 }
 
+// Input: nums = [1,2,3,4,5,6,7], k = 3
+// Output: [5,6,7,1,2,3,4]
+// Explanation:
+// rotate 1 steps to the right: [7,1,2,3,4,5,6]
+// rotate 2 steps to the right: [6,7,1,2,3,4,5]
+// rotate 3 steps to the right: [5,6,7,1,2,3,4]
 func rotateRight(nums []int, k int) {
 	n := len(nums)
 	k = k % n
@@ -64,6 +70,39 @@ func rotateRight(nums []int, k int) {
 	reverse(nums[:k])
 	reverse(nums[k:])
 
+}
+
+// https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description
+// You are given an array prices where prices[i] is the price of a given stock on the ith day.
+// You want to maximize your profit by choosing a single day to buy one stock and
+// choosing a different day in the future to sell that stock.
+// Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
+// Example 1:
+// Input: prices = [7,1,5,3,6,4]
+// Output: 5
+// Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
+// Note that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.
+// Example 2:
+
+// Input: prices = [7,6,4,3,1]
+// Output: 0
+// Explanation: In this case, no transactions are done and the max profit = 0.
+func maxProfit(arr []int) int {
+	l := len(arr)
+	if l <= 1 {
+		return 0
+	}
+	min := arr[0]
+	profit := 0
+	for i := range arr {
+		if profit < arr[i]-min {
+			profit = arr[i] - min
+		}
+		if min > arr[i] {
+			min = arr[i]
+		}
+	}
+	return profit
 }
 
 func main() {
