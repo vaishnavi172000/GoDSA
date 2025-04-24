@@ -46,6 +46,24 @@ func RecursiveBubbleSort(arr []int, n int) {
 
 }
 
+// RecursiveInsertionSort sorts the array using insertion sort recursively
+// It takes two parameters array and n (length of the array)
+// It sorts the array in ascending order
+func RecursiveInsertionSort(arr []int, n int) {
+	if n > 2 {
+		RecursiveInsertionSort(arr, n-1)
+
+	}
+	key := arr[n-1]
+	i := n - 2
+	for i = n - 2; i >= 0 && arr[i] > key; i-- {
+		fmt.Println(i)
+		arr[i+1] = arr[i]
+	}
+	arr[i+1] = key
+
+}
+
 func main() {
 	var n int
 	var e int
@@ -60,7 +78,7 @@ func main() {
 		fmt.Scan(&mySlice[i])
 	}
 
-	fmt.Println("Enter your choice: \n1. Bubble Sort \n2. Insertion Sort \n3. Recursive Bubble Sort")
+	fmt.Println("Enter your choice: \n1. Bubble Sort \n2. Insertion Sort \n3. Recursive Bubble Sort\n4. Recursive Insertion Sort")
 	fmt.Scan(&e)
 	switch e {
 	case 1:
@@ -77,6 +95,11 @@ func main() {
 		RecursiveBubbleSort(mySlice, n)
 		fmt.Println(mySlice)
 	case 4:
+		RecursiveInsertionSort(mySlice, n)
+		fmt.Println("Sorted Using Recursive Insertion Sort")
+		RecursiveInsertionSort(mySlice, n)
+		fmt.Println(mySlice)
+	default:
 		fmt.Println("Invalid Choice")
 
 	}
