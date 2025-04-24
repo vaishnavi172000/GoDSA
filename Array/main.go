@@ -22,6 +22,7 @@ func FindSecondlargest(arr []int) int {
 	return secondMax
 }
 
+// https://leetcode.com/problems/remove-duplicates-from-sorted-array/
 // Given an integer array nums sorted in non-decreasing order,
 // remove the duplicates in-place such that each unique element appears only once.
 // The relative order of the elements should be kept the same. Then return the number of unique elements in nums.
@@ -48,6 +49,23 @@ func removeDuplicates(arr []int) int {
 
 }
 
+func reverse(arr []int) {
+	n := len(arr)
+	for i := 0; i < n/2; i++ {
+		arr[i], arr[n-1-i] = arr[n-1-i], arr[i]
+	}
+
+}
+
+func rotateRight(nums []int, k int) {
+	n := len(nums)
+	k = k % n
+	reverse(nums)
+	reverse(nums[:k])
+	reverse(nums[k:])
+
+}
+
 func main() {
 	var n int
 	fmt.Println("Enter the size of the array")
@@ -61,5 +79,13 @@ func main() {
 	}
 	fmt.Println("Second largest element is")
 	fmt.Println(FindSecondlargest(arr))
+
+	fmt.Println("Array after reversing")
+	reverse(arr)
+	fmt.Println(arr)
+
+	fmt.Println("Array after rotatng right by 2")
+	rotateRight(arr, 2)
+	fmt.Println(arr)
 
 }
