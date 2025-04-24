@@ -1,0 +1,70 @@
+package main
+
+import "fmt"
+
+// Given two strings s and t, determine if they are isomorphic.
+// Two strings s and t are isomorphic if the characters in s can be replaced to get t.
+// All occurrences of a character must be replaced with another character while preserving the order of characters.
+//
+//	No two characters may map to the same character, but a character may map to itself.
+//
+// Example 1:
+// Input: s = "egg", t = "add"
+// Output: true
+// Explanation:
+// The strings s and t can be made identical by:
+// Mapping 'e' to 'a'.
+// Mapping 'g' to 'd'.
+// Example 2:
+// Input: s = "foo", t = "bar"
+// Output: false
+// Explanation:
+// The strings s and t can not be made identical as 'o' needs to be mapped to both 'a' and 'r'.
+// Example 3:
+// Input: s = "paper", t = "title"
+// Output: true
+func isIsomorphic(s string, t string) bool {
+	// s:t
+	m1 := make(map[rune]rune)
+	// t:s
+	m2 := make(map[rune]rune)
+	l1 := len(s)
+	l2 := len(t)
+	if l1 != l2 {
+		return false
+	}
+	for i := range l1 {
+		s1 := rune(s[i])
+		t1 := rune(t[i])
+		if val, ok := m1[s1]; !ok {
+			m1[s1] = t1
+		} else {
+			if val != t1 {
+				return false
+			}
+		}
+
+		if val, ok := m2[t1]; !ok {
+			m2[t1] = s1
+		} else {
+			if val != s1 {
+				return false
+			}
+		}
+
+	}
+	return true
+
+}
+
+func main() {
+	fmt.Println("Enter 2 strings")
+	var s1, s2 string
+	fmt.Scan(&s1)
+	fmt.Scan(&s2)
+	if isIsomorphic(s1, s2) {
+		fmt.Println("Strings are isomorphic")
+	} else {
+		fmt.Println("Strings are not isomorphic")
+	}
+}
