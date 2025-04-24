@@ -68,6 +68,21 @@ func SortString(s string) string {
 	return string(r)
 }
 
+// https://leetcode.com/problems/group-anagrams/description/
+// Given an array of strings strs, group the anagrams together. You can return the answer in any order.
+// Example 1:
+// Input: strs = ["eat","tea","tan","ate","nat","bat"]
+// Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+// Explanation:
+// There is no string in strs that can be rearranged to form "bat".
+// The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
+// The strings "ate", "eat", and "tea" are anagrams as they can be rearranged to form each other.
+// Example 2:
+// Input: strs = [""]
+// Output: [[""]]
+// Example 3:
+// Input: strs = ["a"]
+// Output: [["a"]]
 func groupAnagrams(strs []string) [][]string {
 	var result [][]string
 	mp := make(map[string][]string)
@@ -83,6 +98,58 @@ func groupAnagrams(strs []string) [][]string {
 		result = append(result, v)
 	}
 	return result
+
+}
+
+// https://leetcode.com/problems/remove-outermost-parentheses/description/
+// A valid parentheses string is either empty "", "(" + A + ")", or A + B,
+// where A and B are valid parentheses strings, and + represents string concatenation.
+// For example, "", "()", "(())()", and "(()(()))" are all valid parentheses strings.
+// A valid parentheses string s is primitive if it is nonempty, and there does not exist a way to split it into s = A + B,
+// with A and B nonempty valid parentheses strings.
+// Given a valid parentheses string s, consider its primitive decomposition: s = P1 + P2 + ... + Pk,
+// where Pi are primitive valid parentheses strings.
+// Return s after removing the outermost parentheses of every primitive string in the primitive decomposition of s.
+// Example 1:
+
+// Input: s = "(()())(())"
+// Output: "()()()"
+// Explanation:
+// The input string is "(()())(())", with primitive decomposition "(()())" + "(())".
+// After removing outer parentheses of each part, this is "()()" + "()" = "()()()".
+// Example 2:
+
+// Input: s = "(()())(())(()(()))"
+// Output: "()()()()(())"
+// Explanation:
+// The input string is "(()())(())(()(()))", with primitive decomposition "(()())" + "(())" + "(()(()))".
+// After removing outer parentheses of each part, this is "()()" + "()" + "()(())" = "()()()()(())".
+// Example 3:
+
+// Input: s = "()()"
+// Output: ""
+// Explanation:
+// The input string is "()()", with primitive decomposition "()" + "()".
+// After removing outer parentheses of each part, this is "" + "" = "".
+
+func removeOuterParentheses(s string) string {
+	depth := 0
+	var chars []rune
+	for _, v := range s {
+
+		if string(v) == "(" {
+			if depth != 0 {
+				chars = append(chars, v)
+			}
+			depth++
+		} else {
+			if depth != 1 {
+				chars = append(chars, v)
+			}
+			depth--
+		}
+	}
+	return string(chars)
 
 }
 
