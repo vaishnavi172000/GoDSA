@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"slices"
+)
 
 // https://leetcode.com/problems/isomorphic-strings/description/
 // Given two strings s and t, determine if they are isomorphic.
@@ -58,14 +61,31 @@ func isIsomorphic(s string, t string) bool {
 
 }
 
+func SortString(s string) string {
+	r := []rune(s)
+	slices.Sort(r)
+	return string(r)
+}
+
 func main() {
 	fmt.Println("Enter 2 strings")
 	var s1, s2 string
 	fmt.Scan(&s1)
 	fmt.Scan(&s2)
-	if isIsomorphic(s1, s2) {
-		fmt.Println("Strings are isomorphic")
-	} else {
-		fmt.Println("Strings are not isomorphic")
+	fmt.Println("Enter your Choice \n1. Sort \n2. Isomorphic")
+	var choice int
+	fmt.Scan(&choice)
+	switch choice {
+	case 1:
+		fmt.Println("S1 after sorting", SortString(s1))
+	case 2:
+		if isIsomorphic(s1, s2) {
+			fmt.Println("Strings are isomorphic")
+		} else {
+			fmt.Println("Strings are not isomorphic")
+		}
+	default:
+		fmt.Println("Invalid Choice")
 	}
+
 }
