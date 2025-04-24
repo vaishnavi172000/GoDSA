@@ -61,10 +61,29 @@ func isIsomorphic(s string, t string) bool {
 
 }
 
+// Time comeplexity NlogN
 func SortString(s string) string {
 	r := []rune(s)
 	slices.Sort(r)
 	return string(r)
+}
+
+func groupAnagrams(strs []string) [][]string {
+	var result [][]string
+	mp := make(map[string][]string)
+	for _, str := range strs {
+		key := SortString(str)
+		if _, ok := mp[key]; !ok {
+			mp[key] = []string{str}
+		} else {
+			mp[key] = append(mp[key], str)
+		}
+	}
+	for _, v := range mp {
+		result = append(result, v)
+	}
+	return result
+
 }
 
 func main() {
