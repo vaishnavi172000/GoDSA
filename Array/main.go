@@ -105,6 +105,140 @@ func maxProfit(arr []int) int {
 	return profit
 }
 
+// https://leetcode.com/problems/two-sum/description/
+// Given an array of integers nums and an integer target,
+// return indices of the two numbers such that they add up to target.
+// You may assume that each input would have exactly one solution,
+// and you may not use the same element twice.
+// You can return the answer in any order.
+// Example 1:
+
+// Input: nums = [2,7,11,15], target = 9
+// Output: [0,1]
+// Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
+// Example 2:
+
+// Input: nums = [3,2,4], target = 6
+// Output: [1,2]
+// Example 3:
+
+// Input: nums = [3,3], target = 6
+// Output: [0,1]
+func twoSum(nums []int, target int) []int {
+	var result []int
+	mp := make(map[int]int)
+	for i, num := range nums {
+		if val, ok := mp[target-num]; !ok {
+			mp[num] = i
+		} else {
+			result = append(result, []int{i, val}...)
+			return result
+		}
+
+	}
+	return result
+
+}
+
+// https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/submissions/1617122398/
+// Given a 1-indexed array of integers numbers that is already sorted in non-decreasing order,
+// find two numbers such that they add up to a specific target number. Let these two numbers be numbers[index1] and numbers[index2] where 1 <= index1 < index2 <= numbers.length.
+// Return the indices of the two numbers, index1 and index2, added by one as an integer array [index1, index2] of length 2.
+// The tests are generated such that there is exactly one solution. You may not use the same element twice.
+// Your solution must use only constant extra space.
+// Example 1:
+
+// Input: numbers = [2,7,11,15], target = 9
+// Output: [1,2]
+// Explanation: The sum of 2 and 7 is 9. Therefore, index1 = 1, index2 = 2. We return [1, 2].
+// Example 2:
+
+// Input: numbers = [2,3,4], target = 6
+// Output: [1,3]
+// Explanation: The sum of 2 and 4 is 6. Therefore index1 = 1, index2 = 3. We return [1, 3].
+// Example 3:
+
+// Input: numbers = [-1,0], target = -1
+// Output: [1,2]
+// Explanation: The sum of -1 and 0 is -1. Therefore index1 = 1, index2 = 2. We return [1, 2].
+
+// 2 sum return the elements
+func twoSumElements(nums []int, target int) []int {
+	var result []int
+	//slices.Sort(nums)
+	i := 0
+	j := len(nums) - 1
+	for i < j {
+		sum := nums[i] + nums[j]
+		if sum == target {
+			result = append(result, []int{nums[i], nums[j]}...)
+			return result
+		}
+		if sum > target {
+			j--
+		} else {
+			i++
+		}
+	}
+	return result
+
+}
+
+// Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
+// Symbol       Value
+// I             1
+// V             5
+// X             10
+// L             50
+// C             100
+// D             500
+// M             1000
+// For example, 2 is written as II in Roman numeral, just two ones added together. 12 is written as XII, which is simply X + II. The number 27 is written as XXVII, which is XX + V + II.
+// Roman numerals are usually written largest to smallest from left to right. However, the numeral for four is not IIII. Instead, the number four is written as IV. Because the one is before the five we subtract it making four. The same principle applies to the number nine, which is written as IX. There are six instances where subtraction is used:
+
+// I can be placed before V (5) and X (10) to make 4 and 9.
+// X can be placed before L (50) and C (100) to make 40 and 90.
+// C can be placed before D (500) and M (1000) to make 400 and 900.
+// Given a roman numeral, convert it to an integer.
+
+// Example 1:
+
+// Input: s = "III"
+// Output: 3
+// Explanation: III = 3.
+// Example 2:
+
+// Input: s = "LVIII"
+// Output: 58
+// Explanation: L = 50, V= 5, III = 3.
+// Example 3:
+
+// Input: s = "MCMXCIV"
+// Output: 1994
+// Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
+
+func romanToInt(s string) int {
+	m1 := make(map[string]int)
+	m1["I"] = 1
+	m1["V"] = 5
+	m1["X"] = 10
+	m1["L"] = 50
+	m1["C"] = 100
+	m1["D"] = 500
+	m1["M"] = 1000
+	l := len(s)
+	sum := 0
+	for i, v := range s {
+		if i != l-1 && (m1[string(v)] < m1[string(s[i+1])]) {
+			sum = sum - m1[string(v)]
+		} else {
+			sum += m1[string(v)]
+		}
+	}
+	return sum
+
+}
+
 func main() {
 	var n int
 	fmt.Println("Enter the size of the array")

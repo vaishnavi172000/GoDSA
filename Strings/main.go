@@ -153,6 +153,28 @@ func removeOuterParentheses(s string) string {
 
 }
 
+// 2 sum return the elements
+func twoSumElements(nums []int, target int) []int {
+	var result []int
+	slices.Sort(nums)
+	i := 0
+	j := len(nums) - 1
+	for i < j {
+		sum := nums[i] + nums[j]
+		if sum == target {
+			result = append(result, []int{nums[i], nums[j]}...)
+			return result
+		}
+		if sum > target {
+			j--
+		} else {
+			i++
+		}
+	}
+	return result
+
+}
+
 func main() {
 	fmt.Println("Enter 2 strings")
 	var s1, s2 string
