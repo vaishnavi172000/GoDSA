@@ -300,6 +300,23 @@ func subarraySumlenLongest(nums []int, k int) int {
 
 }
 
+func maxSubArray(nums []int) int {
+	sum := 0
+	maxE := math.MinInt
+	for _, v := range nums {
+		sum += v
+		if sum < 0 {
+			sum = 0
+			continue
+		}
+		if sum > maxE {
+			maxE = sum
+		}
+
+	}
+	return maxE
+}
+
 func main() {
 	var n int
 	fmt.Println("Enter the size of the array")

@@ -175,6 +175,67 @@ func twoSumElements(nums []int, target int) []int {
 
 }
 
+// https://leetcode.com/problems/valid-parentheses/?envType=problem-list-v2&envId=
+// Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+// An input string is valid if:
+
+// Open brackets must be closed by the same type of brackets.
+// Open brackets must be closed in the correct order.
+// Every close bracket has a corresponding open bracket of the same type.
+// Example 1:
+// Input: s = "()"
+// Output: true
+
+// Example 2:
+// Input: s = "()[]{}"
+// Output: true
+
+// Example 3:
+// Input: s = "(]"
+// Output: false
+
+// Example 4:
+
+// Input: s = "([])"
+// Output: true
+
+func isValidStringofPrenthesis(s string) bool {
+	var st []string
+	top := -1
+	//m := -1
+	mp := make(map[string]string)
+	mp[")"] = "("
+	mp["}"] = "{"
+	mp["]"] = "["
+	for _, c := range s {
+		s := string(c)
+		if v, ok := mp[s]; ok {
+			if top == -1 {
+				return false
+			}
+			if v != st[top] {
+				if top != 0 {
+					st = st[0:top]
+				}
+				return false
+			}
+
+			top = top - 1
+		} else {
+			st = append(st, s)
+			top++
+			st[top] = s
+		}
+
+	}
+	if top != -1 {
+		return false
+	}
+
+	return true
+
+}
+
 func main() {
 	fmt.Println("Enter 2 strings")
 	var s1, s2 string
