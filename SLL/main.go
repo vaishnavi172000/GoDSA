@@ -52,6 +52,46 @@ func (l *SLL) Print() {
 	}
 }
 
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+var result [][]int
+
+func leafPathSum(root *TreeNode, targetSum int, path []int, currSum int) {
+	fmt.Println("val targetSum path currsum result", root.Val, targetSum, path, currSum, result)
+	if root.Left == nil && root.Right == nil {
+		sum := currSum + root.Val
+		if sum == targetSum {
+			path = append(path, root.Val)
+			result = append(result, path)
+		}
+		return
+	}
+	path = append(path, root.Val)
+	currSum += root.Val
+	if root.Left != nil {
+		leafPathSum(root.Left, targetSum, path, currSum)
+	}
+	if root.Right != nil {
+		leafPathSum(root.Right, targetSum, path, currSum)
+	}
+	fmt.Println("%%%%%%val targetSum path currsum result", root.Val, targetSum, path, currSum, result)
+}
+func pathSum(root *TreeNode, targetSum int) [][]int {
+	if root == nil {
+		return result
+	}
+	var path []int
+	leafPathSum(root, targetSum, path, 0)
+	return result
+
+}
+
 func main() {
 	l := new(SLL)
 	l.Create()

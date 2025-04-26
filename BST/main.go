@@ -67,6 +67,49 @@ func Search(root *Node, key int) bool {
 	return Search(root.left, key)
 }
 
+// https://leetcode.com/problems/path-sum-ii/?envType=problem-list-v2&envId=binary-tree
+// Given the root of a binary tree and an integer targetSum,
+// return all root-to-leaf paths where the sum of the node values in the path equals targetSum.
+// Each path should be returned as a list of the node values, not node references.
+// A root-to-leaf path is a path starting from the root and ending at any leaf node. A leaf is a node with no children.
+// Input: root = [5,4,8,11,null,13,4,7,2,null,null,5,1], targetSum = 22
+// Output: [[5,4,11,2],[5,8,4,5]]
+// Explanation: There are two paths whose sum equals targetSum:
+// 5 + 4 + 11 + 2 = 22
+// 5 + 8 + 4 + 5 = 22
+var result [][]int
+
+func leafPathSum(root *Node, targetSum int, path []int, currSum int) {
+	if root.left == nil && root.right == nil {
+		sum := currSum + root.data
+		if sum == targetSum {
+			path = append(path, root.data)
+			result = append(result, path)
+		}
+		return
+	}
+	var path1 []int
+	path1 = append(path1, path...)
+	path1 = append(path1, root.data)
+	currSum += root.data
+	if root.left != nil {
+		leafPathSum(root.left, targetSum, path1, currSum)
+	}
+	if root.right != nil {
+		leafPathSum(root.right, targetSum, path1, currSum)
+	}
+}
+func pathSumtoLeafs(root *Node, targetSum int) [][]int {
+	result = [][]int{}
+	if root == nil {
+		return result
+	}
+	var path []int
+	leafPathSum(root, targetSum, path, 0)
+	return result
+
+}
+
 func main() {
 	var root *Node
 
