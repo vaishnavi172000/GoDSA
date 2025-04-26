@@ -239,6 +239,67 @@ func romanToInt(s string) int {
 
 }
 
+// https://leetcode.com/problems/move-zeroes/
+// Given an integer array nums, move all 0's to the end of it
+//  while maintaining the relative order of the non-zero elements.
+// Note that you must do this in-place without making a copy of the array.
+
+// Example 1:
+
+// Input: nums = [0,1,0,3,12]
+// Output: [1,3,12,0,0]
+// Example 2:
+
+// Input: nums = [0]
+// Output: [0]
+
+func moveZeroes(nums []int) {
+	i := 0
+	n := len(nums)
+	for j := 0; j < n; j++ {
+		if nums[j] != 0 {
+			temp := nums[i]
+			nums[i] = nums[j]
+			nums[j] = temp
+			i++
+		}
+
+	}
+
+}
+
+// rerturn the length of longest subraarya whose sum is k
+func subarraySumlenLongest(nums []int, k int) int {
+	preSumMap := make(map[int]int)
+	n := len(nums)
+	sum := nums[0]
+	preSumMap[sum] = 0
+	l := 0
+	if sum == k {
+		l = 1
+	}
+
+	for i := 1; i < n; i++ {
+		fmt.Println(preSumMap)
+		sum += nums[i]
+		if sum == k {
+			l = max(l, i+1)
+		}
+		if sum > k {
+			if v, ok := preSumMap[sum-k]; ok {
+				fmt.Println("v i l", v, i, l)
+				if l < (i - v) {
+					l = i - v
+				}
+			}
+		}
+		preSumMap[sum] = i + 1
+		fmt.Println(l)
+	}
+	return l
+
+}
+
 func main() {
 	var n int
 	fmt.Println("Enter the size of the array")
