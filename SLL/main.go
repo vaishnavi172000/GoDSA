@@ -52,43 +52,33 @@ func (l *SLL) Print() {
 	}
 }
 
-/**
- * Definition for a binary tree node.
- * type TreeNode struct {
- *     Val int
- *     Left *TreeNode
- *     Right *TreeNode
- * }
- */
-var result [][]int
-
-func leafPathSum(root *TreeNode, targetSum int, path []int, currSum int) {
-	fmt.Println("val targetSum path currsum result", root.Val, targetSum, path, currSum, result)
-	if root.Left == nil && root.Right == nil {
-		sum := currSum + root.Val
-		if sum == targetSum {
-			path = append(path, root.Val)
-			result = append(result, path)
+// https://leetcode.com/problems/merge-two-sorted-lists/description/?envType=problem-list-v2&envId=linked-list
+// You are given the heads of two sorted linked lists list1 and list2.
+// Merge the two lists into one sorted list.
+// The list should be made by splicing together the nodes of the first two lists.
+// Return the head of the merged linked list.
+func mergeTwoLists(list1 *Node, list2 *Node) *Node {
+	var Dummy, temp *Node
+	Dummy = new(Node)
+	temp = Dummy
+	for list1 != nil && list2 != nil {
+		if list1.val > list2.val {
+			temp.next = list2
+			temp = temp.next
+			list2 = list2.next
+		} else {
+			temp.next = list1
+			temp = temp.next
+			list1 = list1.next
 		}
-		return
 	}
-	path = append(path, root.Val)
-	currSum += root.Val
-	if root.Left != nil {
-		leafPathSum(root.Left, targetSum, path, currSum)
+	if list1 != nil {
+		temp.next = list1
 	}
-	if root.Right != nil {
-		leafPathSum(root.Right, targetSum, path, currSum)
+	if list2 != nil {
+		temp.next = list2
 	}
-	fmt.Println("%%%%%%val targetSum path currsum result", root.Val, targetSum, path, currSum, result)
-}
-func pathSum(root *TreeNode, targetSum int) [][]int {
-	if root == nil {
-		return result
-	}
-	var path []int
-	leafPathSum(root, targetSum, path, 0)
-	return result
+	return Dummy.next
 
 }
 
