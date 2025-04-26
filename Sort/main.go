@@ -64,6 +64,31 @@ func RecursiveInsertionSort(arr []int, n int) {
 
 }
 
+func selectionSort(arr []int) {
+	n := len(arr)
+	for i := 0; i < n-1; i++ {
+		for j := 0; j < n-1-i; j++ {
+			if arr[j] > arr[j+1] {
+				arr[j], arr[j+1] = arr[j+1], arr[j]
+			}
+		}
+
+	}
+}
+
+func RecursiveselectionSort(arr []int, n int) {
+	if n > 1 {
+		for i := 0; i < n-1; i++ {
+			if arr[i] > arr[i+1] {
+				arr[i], arr[i+1] = arr[i+1], arr[i]
+			}
+		}
+	}
+	if n > 2 {
+		RecursiveselectionSort(arr, n-1)
+	}
+}
+
 func main() {
 	var n int
 	var e int
@@ -78,7 +103,7 @@ func main() {
 		fmt.Scan(&mySlice[i])
 	}
 
-	fmt.Println("Enter your choice: \n1. Bubble Sort \n2. Insertion Sort \n3. Recursive Bubble Sort\n4. Recursive Insertion Sort")
+	fmt.Println("Enter your choice: \n1. Bubble Sort \n2. Insertion Sort \n3. Recursive Bubble Sort\n4. Recursive Insertion Sort \n5. Selection Sort\n6. Recursive Selection Sort")
 	fmt.Scan(&e)
 	switch e {
 	case 1:
@@ -92,13 +117,20 @@ func main() {
 	case 3:
 		RecursiveBubbleSort(mySlice, n)
 		fmt.Println("Sorted Using Recursive Bubble Sort")
-		RecursiveBubbleSort(mySlice, n)
 		fmt.Println(mySlice)
 	case 4:
 		RecursiveInsertionSort(mySlice, n)
 		fmt.Println("Sorted Using Recursive Insertion Sort")
-		RecursiveInsertionSort(mySlice, n)
 		fmt.Println(mySlice)
+	case 5:
+		selectionSort(mySlice)
+		fmt.Println("Sorted Using Selection Sort")
+		fmt.Println(mySlice)
+	case 6:
+		RecursiveselectionSort(mySlice, n)
+		fmt.Println("Sorted Using Recursive Selection Sort")
+		fmt.Println(mySlice)
+
 	default:
 		fmt.Println("Invalid Choice")
 
