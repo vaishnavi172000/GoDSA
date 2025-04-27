@@ -110,28 +110,25 @@ func pathSumtoLeafs(root *Node, targetSum int) [][]int {
 
 }
 
-func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
-	var Dummy, temp *ListNode
-	Dummy = new(ListNode)
-	temp = Dummy
-	for list1 != nil && list2 != nil {
-		if list1.Val > list2.Val {
-			temp.Next = list2
-			temp = temp.Next
-			list2 = list2.Next
-		} else {
-			temp.Next = list1
-			temp = temp.Next
-			list1 = list1.Next
-		}
+// https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
+// Given a binary search tree (BST), find the lowest common ancestor (LCA) node of two given nodes in the BST.
+// According to the definition of LCA on Wikipedia:
+// “The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as
+// descendants (where we allow a node to be a descendant of itself).”
+
+func lowestCommonAncestor(root, p, q *Node) *Node {
+	if root == nil {
+		return nil
 	}
-	if list1 != nil {
-		temp.Next = list1
+
+	curr := root.data
+	if curr < p.data && curr < q.data {
+		return lowestCommonAncestor(root.right, p, q)
 	}
-	if list2 != nil {
-		temp.Next = list2
+	if curr > p.data && curr > q.data {
+		return lowestCommonAncestor(root.left, p, q)
 	}
-	return Dummy.Next
+	return root
 
 }
 
