@@ -82,6 +82,53 @@ func mergeTwoLists(list1 *Node, list2 *Node) *Node {
 
 }
 
+// https://leetcode.com/problems/rotate-list/?envType=problem-list-v2&envId=linked-list
+// Given the head of a linked list, rotate the list to the right by k places.
+// Example 1:
+
+// Input: head = [1,2,3,4,5], k = 2
+// Output: [4,5,1,2,3]
+func rotateRight(head *Node, k int) *Node {
+	fast := head
+	//slow := head;
+	Dummy := new(Node)
+	Dummy.next = head
+	slow := Dummy
+	if head == nil || head.next == nil {
+		return head
+	}
+	n := 0
+	for fast != nil {
+		fast = fast.next
+		n++
+	}
+	k = k % n
+	if k == 0 {
+		return head
+	}
+
+	fast = Dummy
+	for i := 0; i < k; i++ {
+		fast = fast.next
+	}
+	for fast.next != nil {
+		fast = fast.next
+		slow = slow.next
+	}
+
+	fast = slow.next
+	slow.next = nil
+
+	slow = fast
+
+	for fast != nil && fast.next != nil {
+		fast = fast.next
+	}
+	fast.next = head
+	return slow
+
+}
+
 func main() {
 	l := new(SLL)
 	l.Create()
