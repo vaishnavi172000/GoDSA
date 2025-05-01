@@ -129,6 +129,33 @@ func rotateRight(head *Node, k int) *Node {
 
 }
 
+// Given the head of a sorted linked list,
+// delete all duplicates such that each element appears only once.
+// Return the linked list sorted as well.
+// Input: head = [1,1,2]
+// Output: [1,2]
+
+func deleteDuplicates(head *Node) *Node {
+	if head == nil || head.next == nil {
+		return head
+	}
+	temp := head
+	for temp.next != nil {
+		temp2 := temp
+		key := temp.val
+		for temp.next != nil && temp.next.val == key {
+			temp = temp.next
+		}
+		if temp2 != temp {
+			temp2.next = temp.next
+		} else {
+			temp = temp.next
+		}
+	}
+	return head
+
+}
+
 func main() {
 	l := new(SLL)
 	l.Create()
