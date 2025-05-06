@@ -319,7 +319,7 @@ func maxSubArray(nums []int) int {
 
 // https://leetcode.com/problems/rotate-image/description/?envType=problem-list-v2&envId=array
 // You are given an n x n 2D matrix representing an image, rotate the image by 90 degrees (clockwise).
-// You have to rotate the image in-place, which means you have to modify the input 2D matrix directly. 
+// You have to rotate the image in-place, which means you have to modify the input 2D matrix directly.
 // DO NOT allocate another 2D matrix and do the rotation.
 // Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
 // Output: [[7,4,1],[8,5,2],[9,6,3]]
@@ -339,6 +339,48 @@ func rotate90(matrix [][]int) {
 		}
 
 	}
+
+}
+
+// https://leetcode.com/problems/longest-repeating-character-replacement/description/
+// You are given a string s and an integer k. You can choose any character of the string and change it to any other uppercase English character.
+//  You can perform this operation at most k times.
+
+// Return the length of the longest substring containing the same letter you can get after performing the above operations.
+
+// Example 1:
+
+// Input: s = "ABAB", k = 2
+// Output: 4
+// Explanation: Replace the two 'A's with two 'B's or vice versa.
+// Example 2:
+
+// Input: s = "AABABBA", k = 1
+// Output: 4
+// Explanation: Replace the one 'A' in the middle with 'B' and form "AABBBBA".
+// The substring "BBBB" has the longest repeating letters, which is 4.
+// There may exists other ways to achieve this answer too.
+func characterReplacement(s string, k int) int {
+	n := len(s)
+	l := 0
+	r := 0
+	maxlen := 0
+	maxf := 0
+	mp := make(map[rune]int)
+	for r < n {
+		mp[rune(s[r])]++
+		maxf = max(maxf, mp[rune(s[r])])
+		if r-l+1-maxf > k {
+			mp[rune(s[l])]--
+			if mp[rune(s[l])] == 0 {
+				delete(mp, rune(s[l]))
+			}
+			l++
+		}
+		maxlen = max(maxlen, r-l+1)
+		r++
+	}
+	return maxlen
 
 }
 
