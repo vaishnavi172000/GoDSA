@@ -156,6 +156,40 @@ func deleteDuplicates(head *Node) *Node {
 
 }
 
+// Given the head of a sorted linked list, delete all nodes that have duplicate numbers, leaving only distinct numbers from the original list. Return the linked list sorted as well.
+
+// Example 1:
+
+// Input: head = [1,2,3,3,4,4,5]
+// Output: [1,2,5]
+// Example 2:
+
+// Input: head = [1,1,1,2,3]
+// Output: [2,3]
+
+func deleteDuplicates2(head *Node) *Node {
+	temp := head
+	Dummy := new(Node)
+	prev := Dummy
+	Dummy.next = head
+	for temp != nil && temp.next != nil {
+		temp1 := temp
+		key := temp1.val
+		if temp.val == key && temp.next.val == key {
+			for temp != nil && temp.val == key {
+				temp = temp.next
+			}
+			prev.next = temp
+		} else {
+			prev = temp
+			temp = temp.next
+		}
+
+	}
+	return Dummy.next
+
+}
+
 func main() {
 	l := new(SLL)
 	l.Create()
