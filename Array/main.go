@@ -384,6 +384,110 @@ func characterReplacement(s string, k int) int {
 
 }
 
+// https://leetcode.com/problems/count-number-of-nice-subarrays/description/
+// Given a binary array nums and an integer goal, return the number of non-empty subarrays with a sum goal.
+
+// A subarray is a contiguous part of the array.
+
+// Example 1:
+
+// Input: nums = [1,0,1,0,1], goal = 2
+// Output: 4
+// Explanation: The 4 subarrays are bolded and underlined below:
+// [1,0,1,0,1]
+// [1,0,1,0,1]
+// [1,0,1,0,1]
+// [1,0,1,0,1]
+// Example 2:
+
+// Input: nums = [0,0,0,0,0], goal = 0
+// Output: 15
+func numSubarraysWithSum(nums []int, goal int) int {
+	return numSubArrSumLessThanEqual(nums, goal) - numSubArrSumLessThanEqual(nums, goal-1)
+
+}
+
+func numSubArrSumLessThanEqual(nums []int, goal int) int {
+	if goal < 0 {
+		return 0
+	}
+	cnt := 0
+	l := 0
+	r := 0
+	n := len(nums)
+	sum := 0
+
+	for r < n {
+		if nums[r] == 1 {
+			sum++
+		}
+		for sum > goal {
+			sum -= nums[l]
+			l++
+		}
+		if sum <= goal {
+			cnt += r - l + 1
+		}
+		//fmt.Println(cnt, l, r);
+		r++
+
+	}
+	fmt.Println(cnt)
+	return cnt
+}
+
+// https://leetcode.com/problems/binary-subarrays-with-sum/description/
+// Given an array of integers nums and an integer k. A continuous subarray is called nice if there are k odd numbers on it.
+
+// Return the number of nice sub-arrays.
+// Example 1:
+
+// Input: nums = [1,1,2,1,1], k = 3
+// Output: 2
+// Explanation: The only sub-arrays with 3 odd numbers are [1,1,2,1] and [1,2,1,1].
+// Example 2:
+
+// Input: nums = [2,4,6], k = 1
+// Output: 0
+// Explanation: There are no odd numbers in the array.
+// Example 3:
+
+// Input: nums = [2,2,2,1,2,2,1,2,2,2], k = 2
+// Output: 16
+
+func numberOfSubarrays1(nums []int, k int) int {
+	if k < 0 {
+		return 0
+	}
+	n := len(nums)
+	oddCnt := 0
+	cnt := 0
+	r := 0
+	l := 0
+	for r < n {
+		if nums[r]%2 == 1 {
+			cnt++
+		}
+		if cnt > k {
+			for cnt > k && l < r {
+				if nums[l]%2 == 1 {
+					cnt--
+				}
+				l++
+			}
+		}
+		if cnt <= k {
+			oddCnt += r - l + 1
+		}
+		r++
+	}
+	return oddCnt
+
+}
+
+func numberOfSubarrays(nums []int, k int) int {
+	return numberOfSubarrays1(nums, k) - numberOfSubarrays1(nums, k-1)
+}
 func main() {
 	var n int
 	fmt.Println("Enter the size of the array")
