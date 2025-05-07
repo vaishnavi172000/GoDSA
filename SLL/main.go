@@ -156,6 +156,7 @@ func deleteDuplicates(head *Node) *Node {
 
 }
 
+// https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/description/?envType=problem-list-v2&envId=linked-list
 // Given the head of a sorted linked list, delete all nodes that have duplicate numbers, leaving only distinct numbers from the original list. Return the linked list sorted as well.
 
 // Example 1:
@@ -185,6 +186,39 @@ func deleteDuplicates2(head *Node) *Node {
 			temp = temp.next
 		}
 
+	}
+	return Dummy.next
+
+}
+
+// https://leetcode.com/problems/swap-nodes-in-pairs/?envType=problem-list-v2&envId=linked-list
+// Given a linked list, swap every two adjacent nodes and return its head. You must solve the problem without modifying the values in the list's nodes (i.e., only nodes themselves may be changed.)
+// Example 1:
+// Input: head = [1,2,3,4]
+// Output: [2,1,4,3]
+
+// Explanation:
+// Example 2:
+// Input: head = []
+// Output: []
+
+// Example 3:
+// Input: head = [1]
+// Output: [1]
+
+// Example 4:
+// Input: head = [1,2,3]
+// Output: [2,1,3]
+
+func swapPairs(head *Node) *Node {
+	Dummy := new(Node)
+	Dummy.next = head
+	temp := head
+	for temp != nil && temp.next != nil {
+		ele := temp.next.val
+		temp.next.val = temp.val
+		temp.val = ele
+		temp = temp.next.next
 	}
 	return Dummy.next
 
