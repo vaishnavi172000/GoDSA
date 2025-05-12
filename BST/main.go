@@ -11,10 +11,14 @@ type Node struct {
 	right *Node
 }
 
+// 1
+// getNode function to create a new node
 func getNode(value int) *Node {
 	return &Node{data: value}
 }
 
+// 2
+// insert function to insert a new node
 func insert(value int, root *Node) *Node {
 	if root == nil {
 		root = getNode(value)
@@ -30,6 +34,8 @@ func insert(value int, root *Node) *Node {
 	return root
 }
 
+// 3
+// inorder traversal recursive
 func inorder(root *Node) {
 	if root == nil {
 		return
@@ -39,6 +45,8 @@ func inorder(root *Node) {
 	inorder(root.right)
 }
 
+// 4
+// postorder traversal recursive
 func postOrder(root *Node) {
 	if root == nil {
 		return
@@ -48,6 +56,8 @@ func postOrder(root *Node) {
 	fmt.Printf("%d ", root.data)
 }
 
+// 5
+// preorder traversal recursive
 func preOrder(root *Node) {
 	if root == nil {
 		return
@@ -57,6 +67,8 @@ func preOrder(root *Node) {
 	preOrder(root.right)
 }
 
+// 6
+// Search for a key in BST
 func Search(root *Node, key int) bool {
 	if root == nil {
 		return false
@@ -70,6 +82,7 @@ func Search(root *Node, key int) bool {
 	return Search(root.left, key)
 }
 
+// 7
 // https://leetcode.com/problems/path-sum-ii/?envType=problem-list-v2&envId=binary-tree
 // Given the root of a binary tree and an integer targetSum,
 // return all root-to-leaf paths where the sum of the node values in the path equals targetSum.
@@ -113,6 +126,7 @@ func pathSumtoLeafs(root *Node, targetSum int) [][]int {
 
 }
 
+// 8
 // https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
 // Given a binary search tree (BST), find the lowest common ancestor (LCA) node of two given nodes in the BST.
 // According to the definition of LCA on Wikipedia:
@@ -137,6 +151,7 @@ func lowestCommonAncestor(root, p, q *Node) *Node {
 
 var maxI int
 
+// 9
 // https://leetcode.com/problems/binary-tree-maximum-path-sum/
 func maxSum(root *Node) int {
 	maxI = max(root.data, maxI)
