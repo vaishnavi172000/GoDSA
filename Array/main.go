@@ -239,6 +239,7 @@ func romanToInt(s string) int {
 
 }
 
+// 8
 // https://leetcode.com/problems/move-zeroes/
 // Given an integer array nums, move all 0's to the end of it
 //  while maintaining the relative order of the non-zero elements.
@@ -268,6 +269,7 @@ func moveZeroes(nums []int) {
 
 }
 
+// 9
 // rerturn the length of longest subraarya whose sum is k
 func subarraySumlenLongest(nums []int, k int) int {
 	preSumMap := make(map[int]int)
@@ -280,26 +282,25 @@ func subarraySumlenLongest(nums []int, k int) int {
 	}
 
 	for i := 1; i < n; i++ {
-		fmt.Println(preSumMap)
 		sum += nums[i]
 		if sum == k {
 			l = max(l, i+1)
 		}
 		if sum > k {
 			if v, ok := preSumMap[sum-k]; ok {
-				fmt.Println("v i l", v, i, l)
 				if l < (i - v) {
 					l = i - v
 				}
 			}
 		}
 		preSumMap[sum] = i + 1
-		fmt.Println(l)
 	}
 	return l
 
 }
 
+// 10 kanades algo
+// [] array is considered that is max sum can be 0
 func maxSubArray(nums []int) int {
 	sum := 0
 	maxE := math.MinInt
@@ -317,6 +318,7 @@ func maxSubArray(nums []int) int {
 	return maxE
 }
 
+// 11
 // https://leetcode.com/problems/rotate-image/description/?envType=problem-list-v2&envId=array
 // You are given an n x n 2D matrix representing an image, rotate the image by 90 degrees (clockwise).
 // You have to rotate the image in-place, which means you have to modify the input 2D matrix directly.
@@ -342,6 +344,7 @@ func rotate90(matrix [][]int) {
 
 }
 
+// 12
 // https://leetcode.com/problems/longest-repeating-character-replacement/description/
 // You are given a string s and an integer k. You can choose any character of the string and change it to any other uppercase English character.
 //  You can perform this operation at most k times.
@@ -384,6 +387,7 @@ func characterReplacement(s string, k int) int {
 
 }
 
+// 13
 // https://leetcode.com/problems/count-number-of-nice-subarrays/description/
 // Given a binary array nums and an integer goal, return the number of non-empty subarrays with a sum goal.
 
@@ -436,6 +440,7 @@ func numSubArrSumLessThanEqual(nums []int, goal int) int {
 	return cnt
 }
 
+// 14
 // https://leetcode.com/problems/binary-subarrays-with-sum/description/
 // Given an array of integers nums and an integer k. A continuous subarray is called nice if there are k odd numbers on it.
 
