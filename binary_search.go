@@ -1,6 +1,9 @@
 package godsa
 
-import "fmt"
+import (
+	"fmt"
+	"slices"
+)
 
 // BinarySearch uses binary search algo to find the element in the array
 // Complexity o(logn)
@@ -162,4 +165,94 @@ func findLastOccurance(nums []int, target int) int {
 
 	}
 	return ans
+}
+
+// Given two integer arrays nums1 and nums2, return an array of their intersection.
+// Each element in the result must be unique and you may return the result in any order.
+
+// Example 1:
+
+// Input: nums1 = [1,2,2,1], nums2 = [2,2]
+// Output: [2]
+// Example 2:
+
+// Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+// Output: [9,4]
+// Explanation: [4,9] is also accepted.
+
+func intersection(nums1 []int, nums2 []int) []int {
+	n1 := len(nums1)
+	n2 := len(nums2) // smaller array
+	var result []int
+	slices.Sort(nums1)
+	slices.Sort(nums2)
+	i := 0
+	j := 0
+	for i < n1 && j < n2 {
+		key1 := nums1[i]
+		key2 := nums2[j]
+		if nums1[i] == nums2[j] {
+			result = append(result, nums2[j])
+			for i != n1-1 && nums1[i+1] == key1 {
+				i++
+			}
+			i++
+			for j != n2-1 && nums2[j+1] == key2 {
+				j++
+			}
+			j++
+
+		} else {
+			if nums1[i] > nums2[j] {
+				for j != n2-1 && nums2[j+1] == key2 {
+					j++
+				}
+				j++
+			} else {
+				for i != n1-1 && nums1[i+1] == key1 {
+					i++
+				}
+				i++
+
+			}
+		}
+
+	}
+	return result
+
+}
+
+// https://leetcode.com/problems/valid-perfect-square/description/?envType=problem-list-v2&envId=binary-search
+// Given a positive integer num, return true if num is a perfect square or false otherwise.
+
+// A perfect square is an integer that is the square of an integer. In other words, it is the product of some integer with itself.
+
+// You must not use any built-in library function, such as sqrt.
+
+// Example 1:
+
+// Input: num = 16
+// Output: true
+// Explanation: We return true because 4 * 4 = 16 and 4 is an integer.
+// Example 2:
+
+// Input: num = 14
+// Output: false
+// Explanation: We return false because 3.742 * 3.742 = 14 and 3.742 is not an integer.
+func isPerfectSquare(num int) bool {
+	low := 0
+	high := num
+	for low <= high {
+		mid := low + (high-low)/2
+		if mid*mid == num {
+			return true
+		}
+		if mid*mid > num {
+			high = mid - 1
+		} else {
+			low = mid + 1
+		}
+	}
+	return false
+
 }
