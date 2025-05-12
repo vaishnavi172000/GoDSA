@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 type Node struct {
 	data  int
@@ -129,6 +132,48 @@ func lowestCommonAncestor(root, p, q *Node) *Node {
 		return lowestCommonAncestor(root.left, p, q)
 	}
 	return root
+
+}
+
+var maxI int
+
+// https://leetcode.com/problems/binary-tree-maximum-path-sum/
+func maxSum(root *Node) int {
+	maxI = max(root.data, maxI)
+	if root.left == nil && root.right == nil {
+
+		return root.data
+
+	}
+	//fmt.Println("%%%%%%")
+	lh := 0
+	rh := 0
+	if root.left != nil {
+		lh = maxSum(root.left)
+		maxI = max(maxI, lh)
+	}
+	if root.right != nil {
+		rh = maxSum(root.right)
+		maxI = max(maxI, rh)
+	}
+	maxI = max(maxI, root.data+lh+rh)
+	return root.data + max(lh, rh)
+
+}
+func maxPathSum(root *Node) int {
+	maxI = math.MinInt
+	if root == nil {
+		return 0
+	}
+	val := maxSum(root)
+	//fmt.Println("val max", val, maxI)
+
+	if val > maxI {
+		//fmt.Println("dbfhjdfewh")
+		return val
+	}
+
+	return maxI
 
 }
 
