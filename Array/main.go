@@ -534,6 +534,73 @@ func rearrangeArray(nums []int) []int {
 
 }
 
+// https://leetcode.com/problems/minimum-pair-removal-to-sort-array-i/description
+// Given an array nums, you can perform the following operation any number of times:
+
+// Select the adjacent pair with the minimum sum in nums.
+// If multiple such pairs exist, choose the leftmost one.
+// Replace the pair with their sum.
+// Return the minimum number of operations needed to make the array non-decreasing.
+
+// An array is said to be non-decreasing
+// if each element is greater than or equal to its previous element (if it exists).
+// Example 1:
+
+// Input: nums = [5,2,3,1]
+
+// Output: 2
+
+// Explanation:
+
+// The pair (3,1) has the minimum sum of 4. After replacement, nums = [5,2,4].
+// The pair (2,4) has the minimum sum of 6. After replacement, nums = [5,6].
+// The array nums became non-decreasing in two operations.
+
+// Example 2:
+
+// Input: nums = [1,2,2]
+
+// Output: 0
+
+// Explanation:
+
+// The array nums is already sorted.
+func mergeArray(nums []int) []int {
+	sum := math.MaxInt
+	idx := 0
+	n := len(nums)
+	for i := 0; i < n-1; i++ {
+		sum1 := nums[i] + nums[i+1]
+		if sum1 < sum {
+			sum = sum1
+			idx = i
+		}
+	}
+	nums[idx] = sum
+	for i := idx + 1; i < n-1; i++ {
+		nums[i] = nums[i+1]
+	}
+	return nums[:n-1]
+}
+func isArraySorted(nums []int) bool {
+	n := len(nums)
+	for i := 0; i < n-1; i++ {
+		if nums[i] > nums[i+1] {
+			return false
+		}
+	}
+	return true
+}
+func minimumPairRemoval(nums []int) int {
+	cnt := 0
+	for !isArraySorted(nums) {
+		cnt++
+		nums = mergeArray(nums)
+	}
+	return cnt
+
+}
+
 func main() {
 	var n int
 	fmt.Println("Enter the size of the array")
