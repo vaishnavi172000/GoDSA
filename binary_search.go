@@ -256,3 +256,96 @@ func isPerfectSquare(num int) bool {
 	return false
 
 }
+
+func findMax(mat [][]int, n int, m int, mid int) int {
+	maxI := mat[0][mid]
+	inx := 0
+	for i := 1; i < n; i++ {
+		if maxI < mat[i][mid] {
+			maxI = mat[i][mid]
+			inx = i
+		}
+	}
+	return inx
+
+}
+
+// https://leetcode.com/problems/find-a-peak-element-ii/description/
+// A peak element in a 2D grid is an element that is strictly
+// greater than all of its adjacent neighbors to the left, right, top, and bottom.
+
+// Given a 0-indexed m x n matrix mat where no two adjacent cells are equal,
+//  find any peak element mat[i][j] and return the length 2 array [i,j].
+
+// You may assume that the entire matrix is surrounded by an outer perimeter with the value -1 in each cell.
+
+// You must write an algorithm that runs in O(m log(n)) or O(n log(m)) time.
+// Input: mat = [[1,4],[3,2]]
+// Output: [0,1]
+// Explanation: Both 3 and 4 are peak elements so [1,0] and [0,1] are both acceptable answers.
+
+func findPeakGrid(mat [][]int) []int {
+	n := len(mat)
+	m := len(mat[0])
+	low := 0
+	high := m - 1
+	for low <= high {
+		mid := low + (high-low)/2
+		maxRowIndex := findMax(mat, n, m, mid)
+		left := -1
+		right := -1
+		if mid > 0 {
+			left = mat[maxRowIndex][mid-1]
+		}
+
+		if mid < m-1 {
+			right = mat[maxRowIndex][mid+1]
+		}
+
+		if mat[maxRowIndex][mid] > left && mat[maxRowIndex][mid] > right {
+			return []int{maxRowIndex, mid}
+		}
+		if mat[maxRowIndex][mid] < left {
+			high = mid - 1
+		} else {
+			low = mid + 1
+		}
+
+	}
+	return []int{-1, -1}
+
+}
+
+//
+// You have n coins and you want to build a staircase with these coins. The staircase consists of k rows where the ith row has exactly i coins. The last row of the staircase may be incomplete.
+
+// Given the integer n, return the number of complete rows of the staircase you will build.
+
+// Example 1:
+
+// Input: n = 5
+// Output: 2
+// Explanation: Because the 3rd row is incomplete, we return 2.
+// Example 2:
+
+// Input: n = 8
+// Output: 3
+// Explanation: Because the 4th row is incomplete, we return 3.
+func arrangeCoins(n int) int {
+	low := int64(0)
+	high := int64(n)
+	for low <= high {
+		mid := low + (high-low)/2
+		n1 := int(mid*(mid+1)) / 2
+		if n1 == n {
+			return int(mid)
+		}
+		if n1 > n {
+			high = mid - 1
+		} else {
+			low = mid + 1
+		}
+	}
+	return int(high)
+
+}
