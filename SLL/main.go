@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 // Node structure for SLL
 type Node struct {
@@ -350,6 +353,67 @@ func hasCycle(head *Node) bool {
 
 	}
 	return false
+
+}
+
+// https://leetcode.com/problems/convert-binary-number-in-a-linked-list-to-integer/?envType=problem-list-v2&envId=linked-list
+// Given head which is a reference node to a singly-linked list.
+// The value of each node in the linked list is either 0 or 1.
+// The linked list holds the binary representation of a number.
+// Return the decimal value of the number in the linked list.
+// The most significant bit is at the head of the linked list.
+// Example 1:
+
+// Input: head = [1,0,1]
+// Output: 5
+// Explanation: (101) in base 2 = (5) in base 10
+// Example 2:
+
+// Input: head = [0]
+// Output: 0
+
+func getDecimalValue(head *Node) int {
+	power := 0
+	head = reverse(head)
+	num := 0
+	for head != nil {
+		num += head.val * int(math.Pow(float64(2), float64(power)))
+		power += 1
+		head = head.next
+	}
+	return num
+
+}
+
+func findMiddle(head *Node) *Node {
+	fast := head
+	slow := head
+	for fast != nil && fast.next != nil {
+		fast = fast.next.next
+		slow = slow.next
+	}
+	return slow
+}
+
+// https://leetcode.com/problems/palindrome-linked-list/
+// Given the head of a singly linked list, return true if it is a palindrome or false otherwise.
+// Example 1:
+// Input: head = [1,2,2,1]
+// Output: true
+// Example 2:
+// Input: head = [1,2]
+// Output: false
+func isPalindrome(head *Node) bool {
+	mid := findMiddle(head)
+	mid = reverse(mid)
+	for mid != nil {
+		if head.val != mid.val {
+			return false
+		}
+		head = head.next
+		mid = mid.next
+	}
+	return true
 
 }
 
