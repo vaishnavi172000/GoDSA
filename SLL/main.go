@@ -11,17 +11,31 @@ type Node struct {
 	next *Node
 }
 
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
+
+// Definition for a binary tree node.
+type TreeNode struct {
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
+}
+
 // SLL structure
 type SLL struct {
 	// head of the SLL
 	head *Node
 }
 
+// 1
 // getNode function to create a new node
 func (n *Node) getNode(val int) {
 	n.val = val
 }
 
+// 2.
 // Create function to create a SLL
 func (l *SLL) Create() {
 	var val int
@@ -46,6 +60,7 @@ func (l *SLL) Create() {
 	}
 }
 
+// 3.
 // Print function to print the SLL
 func (l *SLL) Print() {
 	temp := l.head
@@ -55,6 +70,7 @@ func (l *SLL) Print() {
 	}
 }
 
+// 4.
 // https://leetcode.com/problems/merge-two-sorted-lists/description/?envType=problem-list-v2&envId=linked-list
 // You are given the heads of two sorted linked lists list1 and list2.
 // Merge the two lists into one sorted list.
@@ -85,6 +101,7 @@ func mergeTwoLists(list1 *Node, list2 *Node) *Node {
 
 }
 
+// 5.
 // https://leetcode.com/problems/rotate-list/?envType=problem-list-v2&envId=linked-list
 // Given the head of a linked list, rotate the list to the right by k places.
 // Example 1:
@@ -132,6 +149,7 @@ func rotateRight(head *Node, k int) *Node {
 
 }
 
+// 6.
 // Given the head of a sorted linked list,
 // delete all duplicates such that each element appears only once.
 // Return the linked list sorted as well.
@@ -159,6 +177,7 @@ func deleteDuplicates(head *Node) *Node {
 
 }
 
+//7.
 // https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/description/?envType=problem-list-v2&envId=linked-list
 // Given the head of a sorted linked list, delete all nodes that have duplicate numbers, leaving only distinct numbers from the original list. Return the linked list sorted as well.
 
@@ -194,8 +213,11 @@ func deleteDuplicates2(head *Node) *Node {
 
 }
 
+// 8
 // https://leetcode.com/problems/swap-nodes-in-pairs/?envType=problem-list-v2&envId=linked-list
-// Given a linked list, swap every two adjacent nodes and return its head. You must solve the problem without modifying the values in the list's nodes (i.e., only nodes themselves may be changed.)
+// Given a linked list, swap every two adjacent nodes and return its head.
+// You must solve the problem without modifying the values in the list's nodes
+// (i.e., only nodes themselves may be changed.)
 // Example 1:
 // Input: head = [1,2,3,4]
 // Output: [2,1,4,3]
@@ -227,6 +249,7 @@ func swapPairs(head *Node) *Node {
 
 }
 
+// 9
 func reverse(head *Node) *Node {
 	curr := head
 	var prev *Node
@@ -242,6 +265,7 @@ func reverse(head *Node) *Node {
 
 }
 
+// 10
 func FindKthNode(head *Node, k int) *Node {
 	temp := head
 	cnt := 1
@@ -255,6 +279,7 @@ func FindKthNode(head *Node, k int) *Node {
 	return temp
 }
 
+// 11
 // https://leetcode.com/problems/reverse-nodes-in-k-group/?envType=problem-list-v2&envId=linked-list
 // Given the head of a linked list, reverse the nodes of the list k at a time, and return the modified list.
 // k is a positive integer and is less than or equal to the length of the linked list.
@@ -294,6 +319,7 @@ func reverseKGroup(head *Node, k int) *Node {
 
 }
 
+// 12
 // https://leetcode.com/problems/reverse-linked-list-ii/description/?envType=problem-list-v2&envId=linked-list
 // Given the head of a singly linked list and two integers left and right where
 // left <= right, reverse the nodes of the list from position left to position right, and return the reversed list.\
@@ -331,6 +357,7 @@ func reverseBetween(head *Node, left int, right int) *Node {
 
 }
 
+// 13
 // https://leetcode.com/problems/linked-list-cycle/
 // Given head, the head of a linked list, determine if the linked list has a cycle in it.
 
@@ -356,6 +383,7 @@ func hasCycle(head *Node) bool {
 
 }
 
+// 14
 // https://leetcode.com/problems/convert-binary-number-in-a-linked-list-to-integer/?envType=problem-list-v2&envId=linked-list
 // Given head which is a reference node to a singly-linked list.
 // The value of each node in the linked list is either 0 or 1.
@@ -385,6 +413,7 @@ func getDecimalValue(head *Node) int {
 
 }
 
+// 15
 func findMiddle(head *Node) *Node {
 	fast := head
 	slow := head
@@ -395,6 +424,7 @@ func findMiddle(head *Node) *Node {
 	return slow
 }
 
+// 16
 // https://leetcode.com/problems/palindrome-linked-list/
 // Given the head of a singly linked list, return true if it is a palindrome or false otherwise.
 // Example 1:
@@ -414,6 +444,43 @@ func isPalindrome(head *Node) bool {
 		mid = mid.next
 	}
 	return true
+
+}
+
+func FindMiddle1(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+	prev := new(ListNode)
+	fast := head
+	slow := head
+	for fast != nil && fast.Next != nil {
+		prev = slow
+		fast = fast.Next.Next
+		slow = slow.Next
+	}
+	if prev.Next != nil {
+		prev.Next = nil
+	}
+	return slow
+
+}
+func sortedListToBST(head *ListNode) *TreeNode {
+	if head == nil {
+		return nil
+	}
+	mid := FindMiddle1(head)
+
+	head1 := new(TreeNode)
+	head1.Val = mid.Val
+
+	if mid == head {
+		return head1
+	}
+
+	head1.Left = sortedListToBST(head)
+	head1.Right = sortedListToBST(mid.Next)
+	return head1
 
 }
 
